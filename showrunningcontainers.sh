@@ -33,9 +33,12 @@ ports_index=$(get_index PORTS)
 names_index=$(get_index NAMES)
 
 echo
-ips=$(ip a | grep 192.168.0\.  | tr "/"  " " | awk '{print $2}')
-echo "Running Docker Containers:"; 
-echo on IPs: $ips
+#ips=$(ip a | grep 192.168.199\.  | tr "/"  " " | awk '{print $2}')
+ips=$(ip -br -4 addr show \
+| grep -Ev 'lo|docker|veth|br-|virbr' \
+| awk '{print $1, $3}' \
+| sed 's#/.*##')
+echo "Running Docker Containers:"
 echo
 
 echo "$docker_ps" | while read -r docker_line; do
@@ -52,4 +55,7 @@ echo "$docker_ps" | while read -r docker_line; do
 	echo "$hostn: $d_name $d_image $d_created $d_status $d_ports"
 
 done |  column -t | tr "~" " " | sort
+echo
+echo "Server IPs:"
+echo "$ips"
 echo
