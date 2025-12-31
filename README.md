@@ -21,7 +21,7 @@ dsrv3:  termix            ghcr.io/lukegus/termix:latest  6 weeks ago   Up 13 day
 dsrv3:  watchtower        containrrr/watchtower          2 months ago  Up 13 days (healthy)  [excluded]
 ```
 
-If you have ssh key-pairs set up between your laptop and each server, you can run a script such as this to list all containers at the same time:
+If you have ssh key-pairs set up between your computer and each server, you can run a script such as this to list all containers at the same time:
 ```
 echo "==================================================="
 ssh dsrv2 ./Show-Running-Containers/showrunningcontainers.sh
